@@ -1,10 +1,10 @@
 import { describe, test, beforeEach, afterEach, beforeAll, expect } from 'vitest';
 
 let jwtToken;
-const baseUrl = 'https://tokenservice-jwt-2025.fly.dev';
+const url = 'https://tokenservice-jwt-2025.fly.dev';
 
 beforeAll(async () => {
-  const res = await fetch(`${baseUrl}/token-service/v1/request-token`, {
+  const res = await fetch(`${url}/token-service/v1/request-token`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -17,7 +17,7 @@ beforeAll(async () => {
 
 describe('GET /movies', () => {
   test('ska hämta alla filmer och returnera status 200', async () => {
-    const res = await fetch(`${baseUrl}/movies`, {
+    const res = await fetch(`${url}/movies`, {
       headers: {
         Authorization: `Bearer ${jwtToken}`
       }
@@ -33,7 +33,7 @@ describe('DELETE /movies/:id', () => {
   let createdMovie;
 
   beforeEach(async () => {
-    const res = await fetch(`${baseUrl}/movies`, {
+    const res = await fetch(`${url}/movies`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ describe('DELETE /movies/:id', () => {
 
   afterEach(async () => {
     if (createdMovie?.id) {
-      await fetch(`${baseUrl}/movies/${createdMovie.id}`, {
+      await fetch(`${url}/movies/${createdMovie.id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${jwtToken}` }
       });
@@ -61,7 +61,7 @@ describe('DELETE /movies/:id', () => {
   });
 
   test('ska radera en film och returnera status 204', async () => {
-    const res = await fetch(`${baseUrl}/movies/${createdMovie.id}`, {
+    const res = await fetch(`${url}/movies/${createdMovie.id}`, {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${jwtToken}` }
     });
@@ -75,7 +75,7 @@ describe('POST /movies + DELETE /movies/:id', () => {
   let createdMovie;
 
   test('ska skapa och radera en film', async () => {
-    const createRes = await fetch(`${baseUrl}/movies`, {
+    const createRes = await fetch(`${url}/movies`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ describe('POST /movies + DELETE /movies/:id', () => {
     expect(createRes.status).toBe(201);
     createdMovie = await createRes.json();
 
-    const deleteRes = await fetch(`${baseUrl}/movies/${createdMovie.id}`, {
+    const deleteRes = await fetch(`${url}/movies/${createdMovie.id}`, {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${jwtToken}` }
     });
@@ -105,7 +105,7 @@ describe('PUT /movies/:id + GET /movies/:id', () => {
   let createdMovie;
 
   beforeEach(async () => {
-    const res = await fetch(`${baseUrl}/movies`, {
+    const res = await fetch(`${url}/movies`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -125,7 +125,7 @@ describe('PUT /movies/:id + GET /movies/:id', () => {
 
   afterEach(async () => {
     if (createdMovie?.id) {
-      await fetch(`${baseUrl}/movies/${createdMovie.id}`, {
+      await fetch(`${url}/movies/${createdMovie.id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${jwtToken}` }
       });
@@ -133,7 +133,7 @@ describe('PUT /movies/:id + GET /movies/:id', () => {
   });
 
   test('ska uppdatera en film och hämta den med nya värden', async () => {
-    const updateRes = await fetch(`${baseUrl}/movies/${createdMovie.id}`, {
+    const updateRes = await fetch(`${url}/movies/${createdMovie.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -151,7 +151,7 @@ describe('PUT /movies/:id + GET /movies/:id', () => {
     const updated = await updateRes.json();
     expect(updated.title).toBe('Uppdaterad title');
 
-    const getRes = await fetch(`${baseUrl}/movies/${createdMovie.id}`, {
+    const getRes = await fetch(`${url}/movies/${createdMovie.id}`, {
       headers: { Authorization: `Bearer ${jwtToken}` }
     });
 
