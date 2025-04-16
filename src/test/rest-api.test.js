@@ -133,16 +133,16 @@ describe('PUT /movies/:id + GET /movies/:id', () => {
         Authorization: `Bearer ${jwtToken}`
       },
       body: JSON.stringify({
-        title: 'Ny film',
-        productionYear: 1950,
+        title: 'Uppdaterad title',
+        productionYear: 2023,
         description: 'BLABLALLALBALBALBLABLLBALBLABLALBLALLBALBA',
-        director: 'Nån Regissör'
+        director: 'Ny Regissör'
       })
     });
 
     expect(updateRes.status).toBe(200);
     const updated = await updateRes.json();
-    expect(updated.title).toBe('Uppdaterad titel');
+    expect(updated.title).toBe('Uppdaterad title');
 
     // GET: hämta uppdaterad film
     const getRes = await fetch(`${baseUrl}/movies/${createdMovie.id}`, {
@@ -152,6 +152,6 @@ describe('PUT /movies/:id + GET /movies/:id', () => {
     expect(getRes.status).toBe(200);
     const movie = await getRes.json();
     expect(movie.director).toBe('Ny Regissör');
-    expect(movie.releaseYear).toBe(2023);
+    expect(movie.productionYear).toBe(2023);
   });
 });
