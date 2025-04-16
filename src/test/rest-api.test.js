@@ -1,7 +1,19 @@
-import { describe, test, beforeEach, afterEach, expect } from 'vitest';
+import { describe, test, beforeEach, afterEach, beforeAll, expect } from 'vitest';
 
-const jwtToken = 'eyJraWQiOiI2ODJhNDUzMi1iZjA5LTRmMDYtODFkZi02Mjk2MWQ5YmJlZWMiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiU2ViYXN0aWFuIiwiZXhwIjoxNzQ0Nzk1NDIyLCJpYXQiOjE3NDQ3OTE4MjIsInNjb3BlIjoiVVNFUiJ9.ErJ8YqiA4Lm9EcGLrQdDjpNIVPAwtBuaS46kLQh_395MWz_YZ6WMBjCCU2XW1COfNkMZdUtqZL8rDQ0BzwI6dSLgH_EuasrM7JFoRvWj5DD1kMTXVMkuA1f3S9D-raxi3L-zqbkqrgRes5BHX7eroPPEbGRevHqUJ68sZgyNfsNuy4XAxRuXPOQbp3bNhjEcAjvYY-giM-TXJQ-N3WNW4xuIlLfs3wTWfdkOoQlXOG4sni9cNn3tTJqKnoDAy4zge1A-Il_XEoh9DBOMwhV-FTTsoQZ6whQ7R-TR5luYsMiku4eTTEkL_-fsWgeQBZgIufVXhxXaXMsIFXczVgX2vw';
+let jwtToken;
 const baseUrl = 'https://tokenservice-jwt-2025.fly.dev';
+
+beforeAll(async () => {
+  const res = await fetch(`${baseUrl}/token-service/v1/request-token`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      username: 'carlos',
+      password: 'carlos'
+    })
+  });
+  jwtToken = await res.text();
+});
 
 describe('GET /movies', () => {
   test('ska hämta alla filmer och returnera status 200', async () => {
