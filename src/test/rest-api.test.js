@@ -1,7 +1,5 @@
-// test/rest-api.test.js
 import { describe, test, beforeEach, afterEach, expect } from 'vitest';
 
-// Hårdkodat JWT-token
 const jwtToken = 'eyJraWQiOiI2ODJhNDUzMi1iZjA5LTRmMDYtODFkZi02Mjk2MWQ5YmJlZWMiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiU2ViYXN0aWFuIiwiZXhwIjoxNzQ0Nzk1NDIyLCJpYXQiOjE3NDQ3OTE4MjIsInNjb3BlIjoiVVNFUiJ9.ErJ8YqiA4Lm9EcGLrQdDjpNIVPAwtBuaS46kLQh_395MWz_YZ6WMBjCCU2XW1COfNkMZdUtqZL8rDQ0BzwI6dSLgH_EuasrM7JFoRvWj5DD1kMTXVMkuA1f3S9D-raxi3L-zqbkqrgRes5BHX7eroPPEbGRevHqUJ68sZgyNfsNuy4XAxRuXPOQbp3bNhjEcAjvYY-giM-TXJQ-N3WNW4xuIlLfs3wTWfdkOoQlXOG4sni9cNn3tTJqKnoDAy4zge1A-Il_XEoh9DBOMwhV-FTTsoQZ6whQ7R-TR5luYsMiku4eTTEkL_-fsWgeQBZgIufVXhxXaXMsIFXczVgX2vw';
 const baseUrl = 'https://tokenservice-jwt-2025.fly.dev';
 
@@ -65,7 +63,6 @@ describe('POST /movies + DELETE /movies/:id', () => {
   let createdMovie;
 
   test('ska skapa och radera en film', async () => {
-    // POST: skapa film
     const createRes = await fetch(`${baseUrl}/movies`, {
       method: 'POST',
       headers: {
@@ -83,7 +80,6 @@ describe('POST /movies + DELETE /movies/:id', () => {
     expect(createRes.status).toBe(201);
     createdMovie = await createRes.json();
 
-    // DELETE: radera samma film
     const deleteRes = await fetch(`${baseUrl}/movies/${createdMovie.id}`, {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${jwtToken}` }
@@ -125,7 +121,6 @@ describe('PUT /movies/:id + GET /movies/:id', () => {
   });
 
   test('ska uppdatera en film och hämta den med nya värden', async () => {
-    // PUT: uppdatera film
     const updateRes = await fetch(`${baseUrl}/movies/${createdMovie.id}`, {
       method: 'PUT',
       headers: {
@@ -144,7 +139,6 @@ describe('PUT /movies/:id + GET /movies/:id', () => {
     const updated = await updateRes.json();
     expect(updated.title).toBe('Uppdaterad title');
 
-    // GET: hämta uppdaterad film
     const getRes = await fetch(`${baseUrl}/movies/${createdMovie.id}`, {
       headers: { Authorization: `Bearer ${jwtToken}` }
     });
