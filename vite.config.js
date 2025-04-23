@@ -6,6 +6,6 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true, // Gör att du kan använda expect utan att importera det i varje fil
-    setupFiles: './test/setup.js' // valfritt om du vill importera jest-dom globalt
+    setupFiles: '././src/test/setup.js' // valfritt om du vill importera jest-dom globalt
   },
 })
