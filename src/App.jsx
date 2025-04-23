@@ -13,7 +13,7 @@ function App() {
         </button>
       </div>
 
-      {/* 👇 Lägg till MovieList-komponenten här */}
+      {}
       <MovieList />
     </>
   );
