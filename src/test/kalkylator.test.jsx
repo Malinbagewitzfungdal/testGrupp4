@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import App from '../App'; // Gå ett steg upp till App.jsx
+import App from '../App';
 
 test('visar 0 från början', () => {
   render(<App />);
