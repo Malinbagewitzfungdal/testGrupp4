@@ -1,8 +1,9 @@
-import { useState } from 'react'
-import './App.css'
+import { useState } from 'react';
+import './App.css';
+import MovieList from './components/MovieList'; // 👈 Importera komponenten
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <>
@@ -11,8 +12,11 @@ function App() {
           count is {count}
         </button>
       </div>
+
+      {/* 👇 Lägg till MovieList-komponenten här */}
+      <MovieList />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
