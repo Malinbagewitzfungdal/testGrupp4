@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { beforeAll, afterEach, afterAll, test, expect } from 'vitest';
 import { server } from './mocks/server';
-import 'whatwg-fetch';
+
 
 import MovieList from '../components/MovieList';
 
