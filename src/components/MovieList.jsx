@@ -14,35 +14,33 @@ export default function MovieList() {
   };
 
   return (
-    <div className="p-4 max-w-md mx-auto">
+    <div>
       {!loggedIn ? (
-        <form onSubmit={handleLogin} className="space-y-2">
+        <form onSubmit={handleLogin}>
           <input
             type="text"
             placeholder="Användarnamn"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="w-full border px-2 py-1"
           />
           <input
             type="password"
             placeholder="Lösenord"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full border px-2 py-1"
           />
-          <button type="submit" className="bg-orange-400 text-white px-4 py-1 rounded">
+          <button type="submit">
             Logga in
           </button>
-          {error && <p className="text-red-600">{error}</p>}
+          {error && <p>{error}</p>}
         </form>
       ) : (
         <div>
-          <h2 className="text-xl font-bold mb-2">Filmer</h2>
+          <h2>Filmer</h2>
           {loading ? (
             <p>Laddar filmer...</p>
           ) : (
-            <ul className="list-disc list-inside">
+            <ul>
               {movies.map((movie) => (
                 <li key={movie.id}>
                   {movie.title} ({movie.productionYear})
